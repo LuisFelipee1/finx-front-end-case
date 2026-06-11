@@ -1,5 +1,10 @@
-import axios from "axios";
+import mockData from "../../mock/db.json";
+import type { AgendamentosResponse } from "../types/appointment";
 
-export const api = axios.create({
-  baseURL: "http://localhost:3001",
-});
+export const appointmentsService = {
+  async getAppointments(): Promise<AgendamentosResponse> {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    return mockData;
+  },
+};
