@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { appointmentsService } from './services/api';
 import type { AgendamentosResponse, OrdenacaoData } from './types/appointment';
-import { calcularIdade, formatarData } from './utils/utils';
 import './App.css'
 import Table from './components/Tables/table';
 import Pagination from './components/Pagination/pagination';
 import Filter from './components/Filters/filter';
+import { AiOutlineLoading } from "react-icons/ai";
 
 function App() {
   const [response, setResponse] = useState<AgendamentosResponse | null>(null);
-  const [loading, setLoading] = useState(false);
   const [medicoFiltro, setMedicoFiltro] = useState('');
   const [pacienteFiltro, setPacienteFiltro] = useState('');
   const [ordenacao, setOrdenacao] = useState<OrdenacaoData>("desc");
@@ -52,7 +51,6 @@ function App() {
     ordenacao: OrdenacaoData = "desc", 
     pagina: number = 1
   ) {
-    setLoading(true);
     setResponse(null);
     const resp = await appointmentsService.getAppointments(
       medico, 
@@ -62,9 +60,6 @@ function App() {
     );
 
     setResponse(resp);
-    setLoading(false);
-
-    console.log(resp);
   }
 
   const mudarPagina = (pagina: number) => {
@@ -82,36 +77,68 @@ function App() {
     fetchAppointments();
   }, []);
 
+  
+
   return (
-    <>
-      <h1>Agendamentos</h1>
-      <Filter
-        pacienteFiltro={pacienteFiltro}
-        setPacienteFiltro={setPacienteFiltro}
-        medicoFiltro={medicoFiltro}
-        setMedicoFiltro={setMedicoFiltro}
-        ordenacao={ordenacao}
-        fetchAppointments={fetchAppointments}
-        handleClearFilters={handleClearFilters}
-        fetchFilterSort={fetchFilterSort}
-      />
-      <div className="flex flex-wrap gap-4 justify-center">
-        {response ? (
-          response.data.length > 0 ? (
-            <Table dados={response.data} />
-          ) : (
-            <p>Nenhum agendamento encontrado</p>
-          )
-        ) : (
-          <p>Carregando...</p>
-        )}
+    <div className="min-h-screen flex justify-center items-center px-6 py-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-0">
+          <h1 style={{ marginBottom: 10 }}
+            className="
+              my-0
+              text-5xl
+              font-extrabold
+              text-[#001F4D]
+              tracking-tight
+            "
+          >
+            Agendamentos
+          </h1>
+
+          <div
+            className="
+              w-100
+              h-1
+              bg-[#1699E8]
+              rounded-full
+              mx-auto
+              mt-1
+            "
+          />
+          <p className="text-[#4B6B88] text-2xl pt-3 pb-3">
+            Gerencie consultas médicas com rapidez e eficiência
+          </p>
+        </div>
+          <Filter
+            pacienteFiltro={pacienteFiltro}
+            setPacienteFiltro={setPacienteFiltro}
+            medicoFiltro={medicoFiltro}
+            setMedicoFiltro={setMedicoFiltro}
+            ordenacao={ordenacao}
+            fetchAppointments={fetchAppointments}
+            handleClearFilters={handleClearFilters}
+            fetchFilterSort={fetchFilterSort}
+          />
+          <div className="flex flex-wrap gap-4 justify-center">
+            {response ? (
+              response.data.length > 0 ? (
+                <>
+                  <Table dados={response.data} />
+                  <Pagination 
+                    mudarPagina={mudarPagina} 
+                    response={response} 
+                    paginaAtual={paginaAtual} 
+                  />
+                </>
+              ) : (
+                <p>Nenhum agendamento encontrado</p>
+              )
+            ) : (
+              <AiOutlineLoading className="animate-spin text-[#001F4D] w-12 h-12" />
+            )}
+          </div>
       </div>
-      <Pagination 
-        mudarPagina={mudarPagina} 
-        response={response} 
-        paginaAtual={paginaAtual} 
-      />
-    </>
+    </div>
   )
 }
 

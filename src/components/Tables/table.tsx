@@ -1,32 +1,51 @@
 import { calcularIdade, formatarData } from "../../utils/utils";
 
-function Table(dados: any) {
-    return (
-        <table >
-          <thead>
-            <tr>
-              <th>Paciente</th>
-              <th>Médico</th>
-              <th>Data Criação</th>
-              <th>Idade</th>
-              <th>Data Agendamento</th>
-              <th>Horário Agendamento</th>
+function Table({ dados }: any) {
+  return (
+    <div className="w-full overflow-x-auto rounded-xl shadow-lg">
+      <table className="w-full bg-white">
+        <thead>
+          <tr className="bg-[#00204D] text-white">
+            <th className="p-3 text-left">Paciente</th>
+            <th className="p-3 text-left">Médico</th>
+            <th className="p-3 text-left">Idade</th>
+            <th className="p-3 text-left">Data Criação</th>
+            <th className="p-3 text-left">Data Agendamento</th>
+            <th className="p-3 text-left">Horário</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {dados.map((item: any, index: number) => (
+            <tr
+              key={item.id}
+              className={`
+                text-[#001F4D]
+                border-t border-[#D9E3EA]
+                hover:bg-[#E6F4FD]
+                ${index % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"}
+              `}
+            >
+              <td className="p-3">{item.paciente.nome}</td>
+              <td className="p-3">{item.medico.nome}</td>
+              <td className="p-3">
+                {calcularIdade(item.paciente.dataNascimento)}
+              </td>
+              <td className="p-3">
+                {formatarData(item.dataCriacao)}
+              </td>
+              <td className="p-3">
+                {formatarData(item.dataAgendamento)}
+              </td>
+              <td className="p-3">
+                {item.horarioAgendamento}
+              </td>
             </tr>
-          </thead>
-          <tbody className="overflow-x-auto">
-            {dados.dados.map((item: any) => (
-              <tr key={item.id}>
-                <td>Médico: {item.medico.nome}</td>
-                <td>Paciente: {item.paciente.nome}</td>
-                <td>Idade: {calcularIdade(item.paciente.dataNascimento)}</td>
-                <td>Data Criação: {formatarData(item.dataCriacao)}</td>
-                <td>Data do Agendamento: {formatarData(item.dataAgendamento)}</td>
-                <td>Horário do Agendamento: {item.horarioAgendamento}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-    );
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default Table;
