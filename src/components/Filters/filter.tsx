@@ -12,14 +12,13 @@ function Filter({
   fetchFilterSort,
 }: FilterProps) {
   return (
-    <div className="flex flex-wrap gap-3 mb-6 w-full">
+    <div className="flex flex-col md:flex-row flex-wrap gap-3 mb-6 w-full min-w-[300px]">
       <input
         type="text"
         placeholder="Nome do Paciente"
         value={pacienteFiltro}
         className="
-            flex-1
-            min-w-[220px]
+            w-full md:flex-1
             px-3 py-2
             bg-white
             text-[#001F4D]
@@ -36,8 +35,7 @@ function Filter({
         placeholder="Nome do Médico"
         value={medicoFiltro}
         className="
-            flex-1
-            min-w-[220px]
+            w-full md:flex-1
             px-3 py-2
             bg-white
             text-[#001F4D]
@@ -49,70 +47,78 @@ function Filter({
         onChange={(e) => setMedicoFiltro(e.target.value)}
       />
 
-        <button
+        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+          <button
             className="
+              w-full sm:w-auto
               px-4 py-2
               bg-[#00204D]
               hover:bg-[#00163A]
               text-white
               rounded-md
               cursor-pointer
-              flex items-center gap-2
+              flex items-center justify-center gap-2
               transition hover:scale-105
+              text-sm sm:text-base
             "
             onClick={fetchFilterSort}
-            >
+          >
             {ordenacao === "desc" ? (
-                <>
+              <>
                 Mais Antigo
                 <FaArrowDown />
-                </>
+              </>
             ) : (
-                <>
+              <>
                 Mais Recente
                 <FaArrowUp />
-                </>
-        )}
-        </button>
+              </>
+            )}
+          </button>
 
-      <button
-        className="
-            px-4 py-2
-            bg-[#1699E8]
-            hover:bg-[#0E66AD]
-            text-white
-            rounded-md
-            cursor-pointer
-            flex items-center gap-2
-            transition hover:scale-105
-        "
-        onClick={() =>
-          fetchAppointments(
-            medicoFiltro,
-            pacienteFiltro,
-            ordenacao,
-            1
-          )
-        }
-      >
-        Pesquisar <FaSearch className="ms-2" />
-      </button>
+          <button
+            className="
+              w-full sm:w-auto
+              px-4 py-2
+              bg-[#1699E8]
+              hover:bg-[#0E66AD]
+              text-white
+              rounded-md
+              cursor-pointer
+              flex items-center justify-center gap-2
+              transition hover:scale-105
+              text-sm sm:text-base
+            "
+            onClick={() =>
+              fetchAppointments(
+                medicoFiltro,
+                pacienteFiltro,
+                ordenacao,
+                1
+              )
+            }
+          >
+            Pesquisar <FaSearch />
+          </button>
 
-      <button
-        className="
-            px-4 py-2
-            bg-white
-            border border-[#D9E3EA]
-            text-[#334155]
-            hover:bg-[#F1F5F9]
-            rounded-md
-            cursor-pointer
-            transition hover:scale-105
-        "
-        onClick={handleClearFilters}
-      >
-        Limpar Filtros
-      </button>
+          <button
+            className="
+              w-full sm:w-auto
+              px-4 py-2
+              bg-white
+              border border-[#D9E3EA]
+              text-[#334155]
+              hover:bg-[#F1F5F9]
+              rounded-md
+              cursor-pointer
+              transition hover:scale-105
+              text-sm sm:text-base
+            "
+            onClick={handleClearFilters}
+          >
+            Limpar Filtros
+          </button>
+        </div>
     </div>
   );
 }

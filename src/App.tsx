@@ -80,7 +80,7 @@ function App() {
   
 
   return (
-    <div className="min-h-screen flex justify-center items-center px-6 py-8">
+    <div className="min-h-screen w-full block px-4 py-8 box-border">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-0">
           <h1 style={{ marginBottom: 10 }}
@@ -119,11 +119,13 @@ function App() {
             handleClearFilters={handleClearFilters}
             fetchFilterSort={fetchFilterSort}
           />
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="w-full overflow-hidden"> 
             {response ? (
               response.data.length > 0 ? (
                 <>
-                  <Table dados={response.data} />
+                  <div className="w-full overflow-x-auto inline-block align-middle">
+                    <Table dados={response.data} />
+                  </div>
                   <Pagination 
                     mudarPagina={mudarPagina} 
                     response={response} 
@@ -131,10 +133,12 @@ function App() {
                   />
                 </>
               ) : (
-                <p>Nenhum agendamento encontrado</p>
+                <p className="text-center py-4">Nenhum agendamento encontrado</p>
               )
             ) : (
-              <AiOutlineLoading className="animate-spin text-[#001F4D] w-12 h-12" />
+              <div className="flex justify-center py-8 w-full">
+                <AiOutlineLoading className="animate-spin text-[#001F4D] w-12 h-12" />
+              </div>
             )}
           </div>
       </div>
