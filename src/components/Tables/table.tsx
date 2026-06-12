@@ -5,7 +5,7 @@ function Table({ dados }: any) {
     <div className="w-full overflow-x-auto rounded-xl shadow-lg">
       <table className="w-full bg-white">
         <thead>
-          <tr className="bg-[#00204D] text-white">
+          <tr className="bg-[#00204D] text-white whitespace-nowrap">
             <th className="p-3 text-left">Paciente</th>
             <th className="p-3 text-left">Médico</th>
             <th className="p-3 text-left">Idade</th>
