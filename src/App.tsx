@@ -67,8 +67,6 @@ function App() {
     setAgendamentos(resp.paginacao.totalDeItens);
     setMedicos(resp.metricas.totalMedicos);
     setPacientes(resp.metricas.totalPacientes);
-    
-    console.log('resp', resp);
 
 
     setResponse(resp);
