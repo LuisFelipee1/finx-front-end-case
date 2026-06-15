@@ -18,7 +18,7 @@ body {
       #3b97df 100%
     );
 
-  background-size: 120% 120%;
+  background-size: 200% 200%;
   animation: gradientMove 3s ease-in-out infinite;
 }
 
