@@ -5,7 +5,8 @@ import './App.css'
 import Table from './components/Tables/table';
 import Pagination from './components/Pagination/pagination';
 import Filter from './components/Filters/filter';
-import { AiOutlineLoading } from "react-icons/ai";
+import { AiOutlineLoading } from "react-icons/ai"
+import Results from './components/results/results';
 
 function App() {
   const [response, setResponse] = useState<AgendamentosResponse | null>(null);
@@ -13,6 +14,9 @@ function App() {
   const [pacienteFiltro, setPacienteFiltro] = useState('');
   const [ordenacao, setOrdenacao] = useState<OrdenacaoData>("desc");
   const [paginaAtual, setPaginaAtual] = useState(1);
+  const [agendamentos, setAgendamentos] = useState<number>(0);
+  const [medicos, setMedicos] = useState<number>(0);
+  const [pacientes, setPacientes] = useState<number>(0);
 
   const fetchFilterSort = () => {
     const novaOrdenacao =
@@ -58,6 +62,14 @@ function App() {
       ordenacao, 
       pagina
     );
+
+
+    setAgendamentos(resp.paginacao.totalDeItens);
+    setMedicos(resp.metricas.totalMedicos);
+    setPacientes(resp.metricas.totalPacientes);
+    
+    console.log('resp', resp);
+
 
     setResponse(resp);
   }
@@ -119,6 +131,7 @@ function App() {
             handleClearFilters={handleClearFilters}
             fetchFilterSort={fetchFilterSort}
           />
+          <Results totalMedicos={medicos} totalPacientes={pacientes} totalAgendamentos={agendamentos} />
           <div className="w-full overflow-hidden"> 
             {response ? (
               response.data.length > 0 ? (

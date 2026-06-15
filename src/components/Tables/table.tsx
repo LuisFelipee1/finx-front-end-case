@@ -6,12 +6,12 @@ function Table({ dados }: any) {
       <table className="w-full bg-white">
         <thead>
           <tr className="bg-[#00204D] text-white whitespace-nowrap">
-            <th className="p-3 text-left">Paciente</th>
-            <th className="p-3 text-left">Médico</th>
-            <th className="p-3 text-left">Idade</th>
-            <th className="p-3 text-left">Data Criação</th>
-            <th className="p-3 text-left">Data Agendamento</th>
-            <th className="p-3 text-left">Horário</th>
+            <th className="p-3 text-center">Paciente</th>
+            <th className="p-3 text-center">Médico</th>
+            <th className="p-3 text-center">Idade</th>
+            <th className="p-3 text-center">Data Criação</th>
+            <th className="p-3 text-center">Data Agendamento</th>
+            <th className="p-3 text-center">Horário</th>
           </tr>
         </thead>
 
@@ -21,8 +21,7 @@ function Table({ dados }: any) {
               key={item.id}
               className={`
                 text-[#001F4D]
-                border-t border-[#D9E3EA]
-                hover:bg-[#E6F4FD]
+                border-l-4 border-transparent hover:border-[#1699E8] transition-colors duration-200
                 ${index % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"}
               `}
             >

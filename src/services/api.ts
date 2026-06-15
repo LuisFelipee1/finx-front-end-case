@@ -54,8 +54,19 @@ export const appointmentsService = {
       fim
     );
 
+    const metricas = {
+      totalAgendamentos: data.length,
+      totalMedicos: new Set(
+        data.map(item => item.medico.nome)
+      ).size,
+      totalPacientes: new Set(
+        data.map(item => item.paciente.nome)
+      ).size,
+    };
+
   return {
     data: dadosPaginados,
+    metricas,
     paginacao: {
       paginaAtual: pagina,
       itensPorPagina,

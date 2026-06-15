@@ -55,11 +55,22 @@ export interface Paginacao {
 export interface AgendamentosResponse {
   data: Agendamento[];
   paginacao: Paginacao;
+  metricas: {
+    totalMedicos: number;
+    totalPacientes: number;
+    totalAgendamentos: number;
+  }
 }
 
 export interface FiltrosAgendamento {
   medico: string;
   paciente: string;
+}
+
+export interface MetricasAgendamentos {
+  totalMedicos: number;
+  totalPacientes: number;
+  totalAgendamentos: number;
 }
 
 export type OrdenacaoData = "asc" | "desc";
